@@ -16,7 +16,9 @@ func check(err error) {
 }
 
 type DNSRECORD []struct {
-	Name string `json:"Name"`
+	Name    string   `json:"Name"`
+	Type    string   `json:"Type"`
+	Records []string `json:"Records"`
 }
 
 var dnsrecord DNSRECORD

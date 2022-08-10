@@ -5,6 +5,8 @@
     <title>{website_title}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="icon" type="image/png" href="img/favicon.png">
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css" />
     <!-- UIkit JS -->
@@ -15,6 +17,10 @@
     <style>
         html {
             font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            overflow-y: scroll;
         }
 
         .kt-nav {
@@ -33,7 +39,6 @@
         .kt-grid {
             display: flex;
             justify-content: center;
-            margin-top: 25px;
         }
 
         .kt-search {
@@ -69,11 +74,52 @@
         .kt-filter-grid {
             margin-top: 20px;
         }
+
+        .kt-content {
+            padding: 25px 300px 0 300px;
+        }
+
+        .kt-totop {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            background-color: transparent;
+            width: 10px;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: lightgrey;
+            border-radius: 5px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .kt-search {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 1500px) {
+            .kt-content {
+                padding: 25px 100px 0 100px;
+            }
+        }
+            
+        
     </style>
 </head>
 
 <body>
     <div id="root">
+        <a class="kt-totop" href="" uk-totop uk-scroll></a>
         <div uk-filter="target: .kt-filter">
             <nav class="uk-background-default kt-nav" uk-sticky>
                 <div class="uk-heading-small kt-title">
@@ -104,13 +150,18 @@
             </nav>
         
             <!-- Layout items -->
-            <ul class="kt-filter uk-grid-small uk-text-center kt-grid" uk-grid>
-                {template}
-            </ul>
+            <div class="kt-content">
+                <ul class="kt-filter uk-grid-small uk-text-center kt-grid" uk-grid>
+                    {template}
+                </ul>
+            </div>
         </div>
     </div>
     <script type="text/javascript">
     </script>
 </body>
+<div class="footer">
+    
+</div>
 
 </html>

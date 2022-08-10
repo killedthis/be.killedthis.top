@@ -1,0 +1,1 @@
+document.write('\nLinks:  <a href="https://Amazon.killedthis.top">Amazon</a> |  <a href="https://Apple.killedthis.top">Apple</a> |  <a href="https://Google.killedthis.top">Google</a> |  <a href="https://Netflix.killedthis.top">Netflix</a> | \n ');

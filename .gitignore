@@ -1,5 +1,6 @@
 r53b/r53b
 secret/
 logs/
-sites/killedthis.top/
+sites/killedthis.top/*.html
 .lego/
+hosts/dynamicservers.conf

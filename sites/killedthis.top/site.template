@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{website_title}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+    <!-- Custom styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        html {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .kt-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 30px;
+        }
+
+        .kt-title {
+            padding-top: 20px;
+            font-weight: 100;
+        }
+
+        .kt-grid {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .kt-search {
+            width: 50%;
+        }
+
+        .kt-item {            
+            max-width: 150px;
+            text-align: start;
+        }
+
+        .kt-thumbnail {
+            min-height: 225px;
+            min-width: 150px;
+        }
+
+        .kt-item-title {
+            word-wrap: break-word;
+            font-weight: 700;
+            font-size: .9em;
+        }
+
+        .kt-item-date {
+            font-size: .9em;
+            font-weight: 300;
+        }
+
+        .kt-filter-options {
+            list-style: none;
+
+        }
+
+        .kt-filter-grid {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div uk-filter="target: .kt-filter">
+            <nav class="uk-background-default kt-nav" uk-sticky>
+                <div class="uk-heading-small kt-title">
+                    <span uk-icon="icon: ban; ratio: 2"></span> {website_title}
+                </div>
+                <form class="uk-search uk-search-navbar kt-search uk-background-muted">
+                    <span uk-search-icon></span>
+                    <input class="uk-search-input" type="search" placeholder="Search">
+                </form>
+                <!-- Filter controls -->
+                <div class="kt-filter-grid uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
+                    <div uk-margin>
+                        <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                            <li class="uk-active" uk-filter-control><a href="#">All</a></li>
+                        </ul>
+                    </div>
+                    <div uk-margin>
+                        <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                            {year_filter}
+                        </ul>
+                    </div>
+                    <div uk-margin>
+                        <ul class="kt-filter-options uk-subnav uk-subnav-pill">                        
+                        {month_filter}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        
+            <!-- Layout items -->
+            <ul class="kt-filter uk-grid-small uk-text-center kt-grid" uk-grid>
+                {template}
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+    </script>
+</body>
+
+</html>

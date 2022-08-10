@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{website_title}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+    <!-- Custom styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        html {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .kt-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 30px;
+        }
+
+        .kt-title {
+            padding-top: 20px;
+            font-weight: 100;
+        }
+
+        .kt-grid {
+            display: flex;
+            justify-content: center;
+            margin-top: 100px;
+        }
+
+        .kt-search {
+            width: 50%;
+        }
+
+        .kt-item {
+            max-width: 150px;
+            text-align: start;
+        }
+
+        .kt-thumbnail {
+            min-height: 225px;
+            min-width: 150px;
+        }
+
+        .kt-item-title {
+            word-wrap: break-word;
+            font-weight: 700;
+            font-size: .9em;
+        }
+
+        .kt-item-date {
+            font-size: .9em;
+            font-weight: 300;
+        }
+
+        .kt-filter-options {
+            list-style: none;
+
+        }
+
+        .kt-filter-grid {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active"><a href="#">Home</a></li>
+                    <li>
+                        <a href="#">About</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    {menu}
+                </ul>
+            </div>
+    </div>
+</body>
+</html>

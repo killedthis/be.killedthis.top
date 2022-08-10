@@ -26,7 +26,7 @@ for SERVICE in "${SERVICES[@]}"; do
 
     TITLELIST=""
     for INDEX in "${!TITLES[@]}"; do
-        TITLELIST="${TITLELIST} <li class=\"kt-item\" year=\"${DATEOFDEATH[$INDEX]::-6}\" month=\"${DATEOFDEATH[$INDEX]:5:2}\" ><img src=\"img/cbimage.jpg\" class=\"kt-thumbnail\" alt=\"No movie thumbnail\"><div class=\"uk-text-secondary kt-item-title\">${TITLES[$INDEX]}</div><div class=\"kt-item-date\">${DATEOFDEATH[$INDEX]::-3}</div></li>"
+        TITLELIST="${TITLELIST} <li class=\"kt-item\" year=\"${DATEOFDEATH[$INDEX]::-6}\" month=\"${DATEOFDEATH[$INDEX]:5:2}\" tmdbid=\"\"><img src=\"img/cbimage.jpg\" class=\"kt-thumbnail\" alt=\"No movie thumbnail\"><div class=\"uk-text-secondary kt-item-title\">${TITLES[$INDEX]}</div><div class=\"kt-item-date\">${DATEOFDEATH[$INDEX]::-3}</div></li>"
     done
 
     cp /home/www/sites/killedthis.top/site.template /home/www/sites/killedthis.top/"${SERVICE,}".killedthis.top.html

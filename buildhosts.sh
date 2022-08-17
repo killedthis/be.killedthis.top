@@ -15,8 +15,8 @@ for SERVICE in "${SERVICES[@]}"; do
 done
 
 #create catchall for all hostnames on :80
-rm /home/www/hosts/dynamicservers.conf
-printf "server {\n\tlisten 80;\n\tserver_name%s;\n\n\treturn 301 https://\$server_name\$request_uri;\n}\n\n" "$hostnamelist" >>/home/www/hosts/dynamicservers.conf
+# rm /home/www/hosts/dynamicservers.conf
+printf "server {\n\tlisten 80;\n\tserver_name%s;\n\n\treturn 301 https://\$server_name\$request_uri;\n\n\tlocation ~ /\.(?!well-known).* {\n\t\tdeny all;\n\t}\n\n}\n\n" "$hostnamelist" >/home/www/hosts/dynamicservers.conf
 
 for hostname in "${SERVICES[@]}"; do
 	/home/www//r53b/r53b "${hostname,}"

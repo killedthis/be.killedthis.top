@@ -40,8 +40,8 @@ func main() {
 
 	json.Unmarshal([]byte(re), &dnsrecord)
 
-	if dnsrecord[0].Name == "" {
-		fmt.Printf("Creating: %s\n", dnsrecord[0].Name)
+	if len(dnsrecord) < 1 {
+		fmt.Printf("Creating: %s\n", os.Args[1]+".killedthis.top")
 		resc, err := dns.Zone("Z07647923LTTIH8HQ17W6").Add("CNAME", os.Args[1]+".killedthis.top", "killedthis.top")
 		check(err)
 

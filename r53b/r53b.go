@@ -27,7 +27,7 @@ func main() {
 	auth, err := aws.EnvAuth()
 	check(err)
 
-	fmt.Printf("checking for: %s\n", os.Args[1]+".killedthis.top")
+	fmt.Printf("Checking for: %s\n", os.Args[1]+".killedthis.top")
 
 	dns := route53.New(auth, aws.EUCentral)
 	check(err)

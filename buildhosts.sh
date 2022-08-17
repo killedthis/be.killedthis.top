@@ -20,7 +20,7 @@ printf "server {\n\tlisten 80;\n\tserver_name%s;\n\n\treturn 301 https://\$serve
 
 for hostname in "${SERVICES[@]}"; do
 	/home/www//r53b/r53b "${hostname,}"
-	printf "server {\n\tlisten 443 ssl http2;\n\tserver_name %s.killedthis.top;\n\tinclude /home/www/hosts/common/dynamicvhost.conf;\n\n\tlocation / {\n\t\troot /home/www/sites/killedthis.top/;\n\t\tindex \$server_name.html;\n\t}\n}\n\n" "${hostname,}" >>/home/www/hosts/dynamicservers.conf
+	printf "server {\n\tlisten 443 ssl http2;\n\tserver_name %s.killedthis.top;\n\tinclude /home/www/hosts/common/dynamicvhost.conf;\n\n\tlocation / {\n\t\troot /home/www/sites/killedthis.top/;\n\t\tindex \$server_name.html;\n\t}\n\n\tlocation ~ /\.(?!well-known).* {\n\t\tdeny all;\n\t}\n\n}\n" "${hostname,}" >>/home/www/hosts/dynamicservers.conf
 	printf "%s\n" "${hostname,}"
 done
 

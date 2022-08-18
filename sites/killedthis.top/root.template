@@ -75,33 +75,7 @@
 </head>
 
 <body>
-    <div>
-        <div class="uk-card uk-card-hover uk-card-body">
-            <h3 class="uk-card-title"> <img src="img/favicon.svg" style="height:64px;" />Killedthis</h3>
-            <p>Killedthis, is a service that lists canceled shows and services from popular providers.</p>
-        </div>
-    </div>
-
-    <div id="root">
-        <nav class="uk-navbar-container" uk-navbar>
-            <div class="uk-navbar-left">
-                <ul class="uk-navbar-nav">
-                    <li class="uk-active"><a href="#">Home</a></li>
-                    <li>
-                        <a href="#">About</a>
-                        <div class="uk-navbar-dropdown">
-                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                <li class="uk-active"><a href="#">Active</a></li>
-                                <li><a href="#">Item</a></li>
-                                <li><a href="#">Item</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    {menu}
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <script src="menu.js"></script>
 
     <div class="uk-section-muted uk-section uk-section-xsmall">
         <div class="tm-grid-expand uk-grid-collapse uk-child-width-1-1 uk-margin-remove-vertical uk-grid uk-grid-stack"

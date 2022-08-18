@@ -117,6 +117,9 @@
 
 <body>
     <div id="root">
+
+        <script src="menu.js"></script>
+
         <a class="kt-totop" href="" uk-totop uk-scroll></a>
         <div uk-filter="target: .kt-filter">
             <nav class="uk-background-default kt-nav" uk-sticky>

@@ -54,5 +54,6 @@ for SERVICE in "${SERVICES[@]}"; do
 done
 
 cp sites/killedthis.top/root.template sites/killedthis.top/root.html
-sed -i "s|{menu}|$MENUSTR|g" "/home/www/sites/killedthis.top/root.html"
+cp sites/killedthis.top/menu.template sites/killedthis.top/menu.js
+sed -i "s|{menu}|$MENUSTR|g" "/home/www/sites/killedthis.top/menu.js"
 sed -i "s/{website_title}/KilledThis/g" "/home/www/sites/killedthis.top/root.html"

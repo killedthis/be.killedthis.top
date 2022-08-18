@@ -1,0 +1,93 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+	"strconv"
+	"strings"
+
+	"github.com/ryanbradynd05/go-tmdb"
+)
+
+type Media []struct {
+	Overview    string `json:"overview"`
+	ReleaseDate string `json:"release_date"`
+	Title       string `json:"title"`
+	ID          string `json:"ID"`
+	PosterPath  string `json:"poster_path"`
+}
+
+func main() {
+	var tmdbAPI *tmdb.TMDb
+
+	config := tmdb.Config{
+		APIKey:   "ef935dd0a2e50b6b39402fe0e0e561bf",
+		Proxies:  nil,
+		UseProxy: false,
+	}
+
+	tmdbAPI = tmdb.Init(config)
+
+	searchPtr := flag.Bool("s", false, "Search Title (string)")
+	tvInfoPtr := flag.Bool("t", false, "TV Info (requires id)")
+
+	flag.Parse()
+
+	if *searchPtr == true {
+		title := strings.Join(os.Args[2:], " ")
+		tvInfo, _ := tmdbAPI.SearchTv(title, nil)
+
+		for md := range tvInfo.Results {
+			if title == tvInfo.Results[md].Name {
+				// fmt.Println(tvInfo.Results[md].FirstAirDate)
+				fmt.Println(tvInfo.Results[md].Name)
+				fmt.Println(tvInfo.Results[md].ID)
+				// fmt.Println(tvInfo.Results[md].PosterPath)
+			}
+		}
+	}
+
+	if *tvInfoPtr == true {
+		baseurl := "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
+		id, _ := strconv.Atoi(os.Args[2])
+		tvInfo, err := tmdbAPI.GetTvInfo(id, nil)
+
+		if err != nil {
+			fmt.Println(os.Args[2:])
+			fmt.Println(err)
+		}
+
+		// fmt.Println(tvInfo.Overview)
+		// fmt.Println(tvInfo.NumberOfEpisodes)
+		// fmt.Println(tvInfo.NumberOfSeasons)
+		// fmt.Println(tvInfo.FirstAirDate)
+		// fmt.Println(tvInfo.LastAirDate)
+		// fmt.Println(baseurl + tvInfo.PosterPath)
+
+		response, err := http.Get(baseurl + tvInfo.PosterPath)
+		if err != nil {
+			fmt.Println(os.Args[2:])
+			fmt.Println(err)
+		}
+		defer response.Body.Close()
+
+		if response.StatusCode == 200 {
+			file, err := os.Create("/home/www/sites/killedthis.top/img/posters/" + os.Args[2] + ".jpg")
+			if err != nil {
+				fmt.Println(os.Args[2:])
+				fmt.Println(err)
+			}
+			defer file.Close()
+
+			_, err = io.Copy(file, response.Body)
+			if err != nil {
+				fmt.Println(os.Args[2:])
+				fmt.Println(err)
+			}
+		}
+	}
+
+}

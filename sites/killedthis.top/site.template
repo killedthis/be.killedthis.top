@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-<link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css" />
     <!-- UIkit JS -->
@@ -45,7 +45,7 @@
             width: 50%;
         }
 
-        .kt-item {            
+        .kt-item {
             max-width: 150px;
             text-align: start;
         }
@@ -112,8 +112,6 @@
                 padding: 25px 100px 0 100px;
             }
         }
-            
-        
     </style>
 </head>
 
@@ -142,13 +140,13 @@
                         </ul>
                     </div>
                     <div uk-margin>
-                        <ul class="kt-filter-options uk-subnav uk-subnav-pill">                        
-                        {month_filter}
+                        <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                            {month_filter}
                         </ul>
                     </div>
                 </div>
             </nav>
-        
+
             <!-- Layout items -->
             <div class="kt-content">
                 <ul class="kt-filter uk-grid-small uk-text-center kt-grid" uk-grid>
@@ -161,7 +159,7 @@
     </script>
 </body>
 <div class="footer">
-    
+
 </div>
 
 </html>

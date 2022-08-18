@@ -51,8 +51,8 @@ for SERVICE in "${SERVICES[@]}"; do
 
     #replace website title with service provider name
     sed -i "s|{website_title}|${SERVICE}|g" "/home/www/sites/killedthis.top/${SERVICE,}.killedthis.top.html"
-    sed -i "s/{website_title}/KilledThis/g" "/home/www/sites/killedthis.top/root.html"
 done
 
 cp sites/killedthis.top/root.template sites/killedthis.top/root.html
 sed -i "s|{menu}|$MENUSTR|g" "/home/www/sites/killedthis.top/root.html"
+sed -i "s/{website_title}/KilledThis/g" "/home/www/sites/killedthis.top/root.html"

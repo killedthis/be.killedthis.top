@@ -31,8 +31,12 @@ for SERVICE in "${SERVICES[@]}"; do
             IMAGENAME="img/cbimage.jpg"
             /home/www/tmdb/tmdb -s ${TITLES[$INDEX]}
         else
-            /home/www/tmdb/tmdb -t ${TMDBID[$INDEX]}
             IMAGENAME="img/posters/${TMDBID[$INDEX]}.jpg"
+
+            if [ -f "$IMAGENAME" ]; then
+                /home/www/tmdb/tmdb -t ${TMDBID[$INDEX]}
+            fi
+
         fi
 
         TITLELIST="${TITLELIST} <li class=\"kt-item\" year=\"${DATEOFDEATH[$INDEX]::-6}\" month=\"${DATEOFDEATH[$INDEX]:5:2}\" tmdbid=\"${TMDBID[$INDEX]}\"><img src=\"$IMAGENAME\" class=\"kt-thumbnail\" alt=\"No movie thumbnail\"><div class=\"uk-text-secondary kt-item-title\">${TITLES[$INDEX]}</div><div class=\"kt-item-date\">${DATEOFDEATH[$INDEX]::-3}</div></li>"

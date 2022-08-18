@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -23,8 +25,13 @@ type Media []struct {
 func main() {
 	var tmdbAPI *tmdb.TMDb
 
+	apikeyload, err := ioutil.ReadFile("/home/www/secret/tmdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	config := tmdb.Config{
-		APIKey:   "ef935dd0a2e50b6b39402fe0e0e561bf",
+		APIKey:   string(apikeyload),
 		Proxies:  nil,
 		UseProxy: false,
 	}

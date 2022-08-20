@@ -141,6 +141,18 @@
                     </div>
                     <div uk-margin>
                         <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                            <li uk-filter-control="sort: year; order: desc;"><a href="#">Latest</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div uk-margin>
+                        <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                            <li uk-filter-control="sort: year; order: asc;"><a href="#">Oldest</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div uk-margin>
+                        <ul class="kt-filter-options uk-subnav uk-subnav-pill">
                             {year_filter}
                         </ul>
                     </div>

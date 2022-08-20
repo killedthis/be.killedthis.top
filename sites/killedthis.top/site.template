@@ -126,10 +126,12 @@
                 <div class="uk-heading-small kt-title">
                     <span uk-icon="icon: ban; ratio: 2"></span> {website_title}
                 </div>
-                <form class="uk-search uk-search-navbar kt-search uk-background-muted">
-                    <span uk-search-icon></span>
-                    <input class="uk-search-input" type="search" placeholder="Search">
-                </form>
+                <div style="text-align: center;">
+                    <form class="uk-search uk-search-navbar kt-search uk-background-muted">
+                        <span uk-search-icon></span>
+                        <input class="uk-search-input" type="search" placeholder="Search">
+                    </form>
+                </div>
                 <!-- Filter controls -->
                 <div class="kt-filter-grid uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
                     <div uk-margin>

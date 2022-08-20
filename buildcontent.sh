@@ -50,7 +50,7 @@ for SERVICE in "${SERVICES[@]}"; do
     sed -i "s|{month_filter}|$MONTHFILTER|g" "/home/www/sites/killedthis.top/${SERVICE,}.killedthis.top.html"
 
     #replace website title with service provider name
-    sed -i "s|{website_title}|${SERVICE}|g" "/home/www/sites/killedthis.top/${SERVICE,}.killedthis.top.html"
+    sed -i "s|{website_title}|${SERVICE} killed the following shows|g" "/home/www/sites/killedthis.top/${SERVICE,}.killedthis.top.html"
 done
 
 cp sites/killedthis.top/root.template sites/killedthis.top/root.html

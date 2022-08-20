@@ -22,8 +22,12 @@ type Media []struct {
 	PosterPath  string `json:"poster_path"`
 }
 
+var PosterPath string = "/home/www/sites/killedthis.top/img/posters/"
+
 func main() {
-	var tmdbAPI *tmdb.TMDb
+	var (
+		tmdbAPI *tmdb.TMDb
+	)
 
 	apikeyload, err := ioutil.ReadFile("/home/www/secret/tmdb")
 	if err != nil {
@@ -72,29 +76,33 @@ func main() {
 		// fmt.Println(tvInfo.NumberOfSeasons)
 		// fmt.Println(tvInfo.FirstAirDate)
 		// fmt.Println(tvInfo.LastAirDate)
+
 		// fmt.Println(baseurl + tvInfo.PosterPath)
 
-		response, err := http.Get(baseurl + tvInfo.PosterPath)
+		downloadPoster(baseurl+tvInfo.PosterPath, os.Args[2])
+	}
+}
+
+func downloadPoster(url string, tmdbid string) {
+	response, err := http.Get(url)
+	if err != nil {
+		fmt.Println(tmdbid)
+		fmt.Println(err)
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode == 200 {
+		file, err := os.Create(PosterPath + tmdbid + ".jpg")
 		if err != nil {
-			fmt.Println(os.Args[2:])
+			fmt.Println(tmdbid)
 			fmt.Println(err)
 		}
-		defer response.Body.Close()
+		defer file.Close()
 
-		if response.StatusCode == 200 {
-			file, err := os.Create("/home/www/sites/killedthis.top/img/posters/" + os.Args[2] + ".jpg")
-			if err != nil {
-				fmt.Println(os.Args[2:])
-				fmt.Println(err)
-			}
-			defer file.Close()
-
-			_, err = io.Copy(file, response.Body)
-			if err != nil {
-				fmt.Println(os.Args[2:])
-				fmt.Println(err)
-			}
+		_, err = io.Copy(file, response.Body)
+		if err != nil {
+			fmt.Println(tmdbid)
+			fmt.Println(err)
 		}
 	}
-
 }

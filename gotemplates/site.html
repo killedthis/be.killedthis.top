@@ -8,7 +8,7 @@
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="icon" type="image/png" href="img/favicon.png">
     <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css"/>
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
     <!-- Custom styles -->
@@ -17,10 +17,81 @@
 </head>
 
 <body>
-    <div id="root">
-        {{ template "menu" . }}
-        TODO: {{ .Title }}
+<div id="root">
+    {{ template "menu" . }}
+
+    <a class="kt-totop" href="" uk-totop uk-scroll></a>
+    <div uk-filter="target: .kt-filter">
+        <nav class="uk-background-default kt-nav" uk-sticky>
+            <div class="uk-heading-small kt-title">
+                <span uk-icon="icon: ban; ratio: 2"></span> {{ .Title }}
+            </div>
+            <div style="text-align: center;">
+                <form class="uk-search uk-search-navbar kt-search uk-background-muted">
+                    <span uk-search-icon></span>
+                    <input class="uk-search-input" type="search" placeholder="Search">
+                </form>
+            </div>
+            <!-- Filter controls -->
+            <div class="kt-filter-grid uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
+                <div uk-margin>
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                        <li class="uk-active" uk-filter-control><a href="#">All</a></li>
+                    </ul>
+                </div>
+                <div uk-margin>
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                        <li uk-filter-control="sort: year; order: desc;"><a href="#">Latest</a>
+                        </li>
+                    </ul>
+                </div>
+                <div uk-margin>
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                        <li uk-filter-control="sort: year; order: asc;"><a href="#">Oldest</a>
+                        </li>
+                    </ul>
+                </div>
+                <div uk-margin="" class="uk-grid-margin uk-first-column">
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill uk-first-column">
+                        <!-- TODO: Generate this list in Go -->
+                        <li uk-filter-control="filter: [year='2013']; group: year" class=""><a href="#">2013</a></li>
+                        <li uk-filter-control="filter: [year='2014']; group: year" class=""><a href="#">2014</a></li>
+                        <li uk-filter-control="filter: [year='2015']; group: year" class=""><a href="#">2015</a></li>
+                        <li uk-filter-control="filter: [year='2016']; group: year" class=""><a href="#">2016</a></li>
+                        <li uk-filter-control="filter: [year='2017']; group: year" class=""><a href="#">2017</a></li>
+                        <li uk-filter-control="filter: [year='2018']; group: year" class=""><a href="#">2018</a></li>
+                        <li uk-filter-control="filter: [year='2019']; group: year" class=""><a href="#">2019</a></li>
+                        <li uk-filter-control="filter: [year='2021']; group: year" class=""><a href="#">2021</a></li>
+                        <li uk-filter-control="filter: [year='2022']; group: year" class=""><a href="#">2022</a></li>
+                    </ul>
+                </div>
+                <div uk-margin="" class="uk-grid-margin uk-first-column">
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill uk-first-column">
+                        <!-- TODO: Generate this list in Go -->
+                        <li uk-filter-control="filter: [month='01']; group: month"><a href="#">01</a></li>
+                        <li uk-filter-control="filter: [month='02']; group: month"><a href="#">02</a></li>
+                        <li uk-filter-control="filter: [month='03']; group: month"><a href="#">03</a></li>
+                        <li uk-filter-control="filter: [month='05']; group: month"><a href="#">05</a></li>
+                        <li uk-filter-control="filter: [month='06']; group: month"><a href="#">06</a></li>
+                        <li uk-filter-control="filter: [month='07']; group: month"><a href="#">07</a></li>
+                        <li uk-filter-control="filter: [month='08']; group: month"><a href="#">08</a></li>
+                        <li uk-filter-control="filter: [month='09']; group: month"><a href="#">09</a></li>
+                        <li uk-filter-control="filter: [month='10']; group: month"><a href="#">10</a></li>
+                        <li uk-filter-control="filter: [month='11']; group: month"><a href="#">11</a></li>
+                        <li uk-filter-control="filter: [month='12']; group: month"><a href="#">12</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Layout items -->
+        <div class="kt-content">
+            <ul class="kt-filter uk-grid-small uk-text-center kt-grid" uk-grid>
+                #template#
+            </ul>
+        </div>
     </div>
+</div>
 </body>
 
 </html>

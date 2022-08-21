@@ -18,6 +18,7 @@ type Renderer struct {
 type templateFields struct {
 	Title string
 	Sites []string
+	Shows []KilledShow
 }
 
 func NewRenderer(sp string, otherServices []string, shows []KilledShow) *Renderer {
@@ -67,6 +68,7 @@ func (m *Renderer) RenderHtml() {
 	err = m.template.Execute(file, templateFields{
 		Title: fmt.Sprintf("%s killed this", m.ServiceProvider),
 		Sites: m.OtherServices,
+		Shows: m.Shows,
 	})
 
 	if err != nil {

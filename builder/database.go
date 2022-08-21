@@ -2,10 +2,10 @@ package builder
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
-	"fmt"
 	"os"
 	"time"
 )
@@ -18,14 +18,14 @@ type Database struct {
 }
 
 type KilledShow struct {
-	Id              int64      `db:"index"`
+	Id              int        `db:"index"`
 	Title           string     `db:"title"`
 	ServiceProvider string     `db:"serviceprovider"`
 	Brand           *string    `db:"brand"`
 	Date            *time.Time `db:"data"`
 	DateAdded       *time.Time `db:"dateadded"`
 	Reason          *string    `db:"reason"`
-	TmdbId          *int64     `db:"tmdbid"`
+	TmdbId          *int       `db:"tmdbid"`
 }
 
 func OpenDatabase() *Database {
@@ -115,5 +115,14 @@ func (show KilledShow) Month() string {
 		return fmt.Sprintf("0%d", i)
 	} else {
 		return fmt.Sprintf("%d", i)
+	}
+}
+
+func (show KilledShow) TmdbPoster() string {
+	if show.TmdbId != nil {
+		return fmt.Sprintf("%d.jpg", *show.TmdbId)
+	} else {
+		// Return not available poster
+		return "not_available.jpg"
 	}
 }

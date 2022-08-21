@@ -53,32 +53,16 @@
                 </div>
                 <div uk-margin="" class="uk-grid-margin uk-first-column">
                     <ul class="kt-filter-options uk-subnav uk-subnav-pill uk-first-column">
-                        <!-- TODO: Generate this list in Go -->
-                        <li uk-filter-control="filter: [year='2013']; group: year" class=""><a href="#">2013</a></li>
-                        <li uk-filter-control="filter: [year='2014']; group: year" class=""><a href="#">2014</a></li>
-                        <li uk-filter-control="filter: [year='2015']; group: year" class=""><a href="#">2015</a></li>
-                        <li uk-filter-control="filter: [year='2016']; group: year" class=""><a href="#">2016</a></li>
-                        <li uk-filter-control="filter: [year='2017']; group: year" class=""><a href="#">2017</a></li>
-                        <li uk-filter-control="filter: [year='2018']; group: year" class=""><a href="#">2018</a></li>
-                        <li uk-filter-control="filter: [year='2019']; group: year" class=""><a href="#">2019</a></li>
-                        <li uk-filter-control="filter: [year='2021']; group: year" class=""><a href="#">2021</a></li>
-                        <li uk-filter-control="filter: [year='2022']; group: year" class=""><a href="#">2022</a></li>
+                        {{ range $y := .Years }}
+                        <li uk-filter-control="filter: [year='{{ $y }}']; group: year" class=""><a href="#">{{ $y }}</a></li>
+                        {{ end }}
                     </ul>
                 </div>
                 <div uk-margin="" class="uk-grid-margin uk-first-column">
                     <ul class="kt-filter-options uk-subnav uk-subnav-pill uk-first-column">
-                        <!-- TODO: Generate this list in Go -->
-                        <li uk-filter-control="filter: [month='01']; group: month"><a href="#">01</a></li>
-                        <li uk-filter-control="filter: [month='02']; group: month"><a href="#">02</a></li>
-                        <li uk-filter-control="filter: [month='03']; group: month"><a href="#">03</a></li>
-                        <li uk-filter-control="filter: [month='05']; group: month"><a href="#">05</a></li>
-                        <li uk-filter-control="filter: [month='06']; group: month"><a href="#">06</a></li>
-                        <li uk-filter-control="filter: [month='07']; group: month"><a href="#">07</a></li>
-                        <li uk-filter-control="filter: [month='08']; group: month"><a href="#">08</a></li>
-                        <li uk-filter-control="filter: [month='09']; group: month"><a href="#">09</a></li>
-                        <li uk-filter-control="filter: [month='10']; group: month"><a href="#">10</a></li>
-                        <li uk-filter-control="filter: [month='11']; group: month"><a href="#">11</a></li>
-                        <li uk-filter-control="filter: [month='12']; group: month"><a href="#">12</a></li>
+                        {{ range $m := .Months }}
+                        <li uk-filter-control="filter: [month='{{ $m }}']; group: month"><a href="#">{{ $m }}</a></li>
+                        {{ end }}
                     </ul>
                 </div>
             </div>
@@ -90,7 +74,7 @@
                 {{ range $show := .Shows }}
                 <li class="kt-item uk-first-column" year="{{ $show.Year }}" month="{{ $show.Month }}" tmdbid="{{ $show.TmdbId }}" style="">
                     <a class="uk-link-reset" href="#modal-full0" uk-toggle="" aria-expanded="false">
-                    <img src="img/posters/111894.jpg" class="kt-thumbnail" alt="No movie thumbnail"></a>
+                    <img src="img/posters/{{ $show.TmdbPoster }}" class="kt-thumbnail" alt="No movie thumbnail"></a>
                     <div class="uk-text-secondary kt-item-title">{{ $show.Title }}</div>
                     <div class="kt-item-date">{{ $show.Year }}-{{ $show.Month }}</div>
                     <div id="modal-full0" class="uk-modal-full uk-modal" uk-modal="">
@@ -102,7 +86,7 @@
                                 </svg>
                             </button>
                             <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle uk-grid uk-grid-stack" uk-grid="">
-                                <div class="uk-background-cover" style="background-image: url('img/posters/{{ $show.TmdbId }}');" uk-height-viewport=""></div>
+                                <div class="uk-background-cover" style="background-image: url('img/posters/{{ $show.TmdbPoster }}');" uk-height-viewport=""></div>
                                 <div class="uk-padding-large">
                                     <h1>Night Sky</h1>
                                     <h2>2022 - 07</h2>

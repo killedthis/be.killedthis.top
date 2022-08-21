@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"os"
+	"time"
 )
 
 const queryServiceProviders = "SELECT DISTINCT serviceprovider FROM killedthis"
@@ -16,23 +17,24 @@ type Database struct {
 }
 
 type KilledShow struct {
-	Id              int64   `db:"index"`
-	Title           string  `db:"title"`
-	ServiceProvider string  `db:"serviceprovider"`
-	Brand           *string `db:"brand"`
-	Date            *string `db:"data"`
-	DateAdded       *string `db:"dateadded"`
-	Reason          *string `db:"reason"`
-	TmdbId          *int64  `db:"tmdbid"`
+	Id              int64      `db:"index"`
+	Title           string     `db:"title"`
+	ServiceProvider string     `db:"serviceprovider"`
+	Brand           *string    `db:"brand"`
+	Date            *time.Time `db:"data"`
+	DateAdded       *time.Time `db:"dateadded"`
+	Reason          *string    `db:"reason"`
+	TmdbId          *int64     `db:"tmdbid"`
 }
 
 func OpenDatabase() *Database {
 	cfg := mysql.Config{
-		User:   os.Getenv("DB_USER"),
-		Passwd: os.Getenv("DB_PASS"),
-		Net:    "tcp",
-		Addr:   os.Getenv("DB_HOST"),
-		DBName: os.Getenv("DB_NAME"),
+		User:      os.Getenv("DB_USER"),
+		Passwd:    os.Getenv("DB_PASS"),
+		Net:       "tcp",
+		Addr:      os.Getenv("DB_HOST"),
+		DBName:    os.Getenv("DB_NAME"),
+		ParseTime: true,
 	}
 
 	db, err := sql.Open("mysql", cfg.FormatDSN())
@@ -100,4 +102,12 @@ func (m *Database) GetShowsByProvider(provider string) []KilledShow {
 	}
 
 	return queriedShows
+}
+
+func (show KilledShow) Year() int {
+	return show.Date.Year()
+}
+
+func (show KilledShow) Month() int {
+	return int(show.Date.Month())
 }

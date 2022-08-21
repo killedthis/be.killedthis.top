@@ -31,10 +31,10 @@ for SERVICE in "${SERVICES[@]}"; do
             IMAGENAME="img/cbimage.jpg"
             /home/www/tmdb/tmdb -s ${TITLES[$INDEX]}
         else
-            IMAGENAME="img/posters/${TMDBID[$INDEX]}.jpg"
-            if [ -f "$IMAGENAME" ]; then
-                /home/www/tmdb/tmdb -t ${TMDBID[$INDEX]}
-            fi
+            IMAGENAME="img/posters/${TMDBID[$INDEX]}.webp"
+            # if [ -f "$IMAGENAME" ]; then
+            /home/www/tmdb/tmdb -t ${TMDBID[$INDEX]}
+            # fi
         fi
 
         TITLELIST="${TITLELIST} <li class=\"kt-item\" year=\"${DATEOFDEATH[$INDEX]::-6}\" month=\"${DATEOFDEATH[$INDEX]:5:2}\" tmdbid=\"${TMDBID[$INDEX]}\"><a class=\"uk-link-reset\" href=\"#modal-full$INDEX\" uk-toggle><img src=\"$IMAGENAME\" class=\"kt-thumbnail\" alt=\"No movie thumbnail\"></a><div class=\"uk-text-secondary kt-item-title\">${TITLES[$INDEX]}</div><div class=\"kt-item-date\">${DATEOFDEATH[$INDEX]::-3}</div>    <div id=\"modal-full$INDEX\" class=\"uk-modal-full\" uk-modal> <div class=\"uk-modal-dialog\"> <button class=\"uk-modal-close-full uk-close-large\" type=\"button\" uk-close></button> <div class=\"uk-grid-collapse uk-child-width-1-2@s uk-flex-middle\" uk-grid> <div class=\"uk-background-cover\" style=\"background-image: url('$IMAGENAME');\" uk-height-viewport></div> <div class=\"uk-padding-large\"> <h1>${TITLES[$INDEX]}</h1> <h2>${DATEOFDEATH[$INDEX]::-6} - ${DATEOFDEATH[$INDEX]:5:2}</h2> <p>foobar</p> </div> </div> </div> </div>  </li>"

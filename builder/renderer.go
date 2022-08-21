@@ -47,9 +47,15 @@ func (m *Renderer) init() {
 func (m *Renderer) RenderHtml() {
 	outputFolder := os.Getenv("OUTPUT")
 
+	if outputFolder == "" {
+		log.Panic("unknown output folder, specify ENV 'OUTPUT', should probably go into a config file later")
+		return
+	}
+
 	file, err := os.OpenFile(outputFolder+"/"+strings.ToLower(m.ServiceProvider)+".html", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
 		log.Panic("failed to open output file: ", err)
+		return
 	}
 	defer func() {
 		err := file.Close()

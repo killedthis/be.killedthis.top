@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	log.Println("Startting KilledThis Builder...")
+	log.Println("Starting KilledThis Builder...")
 
 	database := builder.OpenDatabase()
 	if database == nil {

@@ -5,6 +5,7 @@ import (
 	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
+	"fmt"
 	"os"
 	"time"
 )
@@ -108,6 +109,11 @@ func (show KilledShow) Year() int {
 	return show.Date.Year()
 }
 
-func (show KilledShow) Month() int {
-	return int(show.Date.Month())
+func (show KilledShow) Month() string {
+	i := int(show.Date.Month())
+	if i < 10 {
+		return fmt.Sprintf("0%d", i)
+	} else {
+		return fmt.Sprintf("%d", i)
+	}
 }

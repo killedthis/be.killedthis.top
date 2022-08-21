@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -11,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/h2non/bimg"
 	"github.com/ryanbradynd05/go-tmdb"
 )
 
@@ -27,6 +29,7 @@ var PosterPath string = "/home/www/sites/killedthis.top/img/posters/"
 func main() {
 	var (
 		tmdbAPI *tmdb.TMDb
+		tmdbid  string
 	)
 
 	apikeyload, err := ioutil.ReadFile("/home/www/secret/tmdb")
@@ -62,13 +65,22 @@ func main() {
 	}
 
 	if *tvInfoPtr == true {
-		baseurl := "https://image.tmdb.org/t/p/w300_and_h450_bestv2"
-		id, _ := strconv.Atoi(os.Args[2])
-		tvInfo, err := tmdbAPI.GetTvInfo(id, nil)
 
-		if err != nil {
-			fmt.Println(os.Args[2:])
-			fmt.Println(err)
+		tmdbid = os.Args[2]
+
+		if _, err := os.Stat(PosterPath + tmdbid + ".jpg"); errors.Is(err, os.ErrNotExist) {
+			baseurl := "https://image.tmdb.org/t/p/"
+			smallImage := "w150_and_h225_bestv2"
+			// bigImage := "w780"
+			id, _ := strconv.Atoi(tmdbid)
+			tvInfo, err := tmdbAPI.GetTvInfo(id, nil)
+
+			if err != nil {
+				fmt.Printf("%s | %v\n", tmdbid, err)
+			}
+
+			fmt.Printf("Downloading %s from %s\n", tmdbid, baseurl+smallImage+tvInfo.PosterPath)
+			downloadPoster(baseurl+smallImage+tvInfo.PosterPath, tmdbid)
 		}
 
 		// fmt.Println(tvInfo.Overview)
@@ -77,32 +89,50 @@ func main() {
 		// fmt.Println(tvInfo.FirstAirDate)
 		// fmt.Println(tvInfo.LastAirDate)
 
-		// fmt.Println(baseurl + tvInfo.PosterPath)
+		// fmt.Println(baseurl +smallImage + tvInfo.PosterPath)
 
-		downloadPoster(baseurl+tvInfo.PosterPath, os.Args[2])
+		if _, err := os.Stat(PosterPath + tmdbid + ".webp"); errors.Is(err, os.ErrNotExist) {
+			fmt.Printf("Creating webp of %s\n", tmdbid)
+			createwebP(tmdbid)
+		}
 	}
+}
+
+func createwebP(tmdbid string) {
+	buffer, err := bimg.Read(PosterPath + tmdbid + ".jpg")
+	if err != nil {
+		fmt.Printf("%s | %v %v\n", tmdbid, os.Stderr, err)
+	}
+
+	newImage, err := bimg.NewImage(buffer).Convert(bimg.WEBP)
+	if err != nil {
+		fmt.Printf("%s | %v\n", tmdbid, err)
+	}
+
+	if bimg.NewImage(newImage).Type() == "webp" {
+		fmt.Printf("%s | %s\n", tmdbid, "image was converted into webp")
+	}
+
+	bimg.Write(PosterPath+tmdbid+".webp", newImage)
 }
 
 func downloadPoster(url string, tmdbid string) {
 	response, err := http.Get(url)
 	if err != nil {
-		fmt.Println(tmdbid)
-		fmt.Println(err)
+		fmt.Printf("%s | %v\n", tmdbid, err)
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode == 200 {
 		file, err := os.Create(PosterPath + tmdbid + ".jpg")
 		if err != nil {
-			fmt.Println(tmdbid)
-			fmt.Println(err)
+			fmt.Printf("%s | %v\n", tmdbid, err)
 		}
 		defer file.Close()
 
 		_, err = io.Copy(file, response.Body)
 		if err != nil {
-			fmt.Println(tmdbid)
-			fmt.Println(err)
+			fmt.Printf("%s | %v\n", tmdbid, err)
 		}
 	}
 }

@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/ryanbradynd05/go-tmdb v0.0.0-20220721194547-2ab6191c6273
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

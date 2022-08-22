@@ -23,16 +23,15 @@ type TmdbPosterDownloader struct {
 	config tmdb.Config
 }
 
-func NewPosterDownloader() *TmdbPosterDownloader {
-	apikey := os.Getenv("TMDB_API")
-	if apikey == "" {
+func NewPosterDownloader(tmdbApiKey string) *TmdbPosterDownloader {
+	if tmdbApiKey == "" {
 		log.Panic("TMDB_API not defined")
 		return nil
 	}
 
 	return &TmdbPosterDownloader{
 		config: tmdb.Config{
-			APIKey:   string(apikey),
+			APIKey:   string(tmdbApiKey),
 			Proxies:  nil,
 			UseProxy: false,
 		},

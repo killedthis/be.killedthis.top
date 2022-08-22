@@ -1,26 +1,47 @@
 package main
 
 import (
+	"gopkg.in/yaml.v3"
 	"killedthis/be.killedthis.top/builder"
 	"log"
 	"os"
 )
 
+var config builder.ConfigurationRoot
+
+func init() {
+	log.Println("Loading Configuration...")
+
+	yamlFile, err := os.ReadFile("config.yaml")
+	if err != nil {
+		log.Panic("unable to load configuration: ", err)
+		return
+	}
+
+	err = yaml.Unmarshal(yamlFile, &config)
+	if err != nil {
+		log.Panic("unable to parse configuration: ", err)
+		return
+	}
+
+	log.Printf("%v\n", config)
+}
+
 func main() {
 	log.Println("Starting KilledThis Builder...")
 
-	outputFolder := os.Getenv("OUTPUT")
+	outputFolder := config.OutputDirectory
 	if outputFolder == "" {
 		log.Panic("unknown output folder, specify ENV 'OUTPUT', should probably go into a config file later")
 		return
 	}
 
-	database := builder.OpenDatabase()
+	database := builder.OpenDatabase(&config)
 	if database == nil {
 		log.Panic("failed to open database")
 	}
 
-	posterDownloader := builder.NewPosterDownloader()
+	posterDownloader := builder.NewPosterDownloader(config.TmdbApi)
 
 	// Get all Service Providers
 	log.Println("Retrieving service providers...")

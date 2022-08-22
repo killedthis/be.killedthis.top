@@ -1,0 +1,7 @@
+database:
+  hostname: dbserver
+  schema: funny
+  username: killedthis
+  password: password
+outputDirectory: ../../outputs
+tmdbApi: abcdefgh

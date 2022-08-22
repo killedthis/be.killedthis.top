@@ -6,7 +6,6 @@ import (
 	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
-	"os"
 	"time"
 )
 
@@ -28,13 +27,13 @@ type KilledShow struct {
 	TmdbId          *int       `db:"tmdbid"`
 }
 
-func OpenDatabase() *Database {
+func OpenDatabase(cmdCfg *ConfigurationRoot) *Database {
 	cfg := mysql.Config{
-		User:      os.Getenv("DB_USER"),
-		Passwd:    os.Getenv("DB_PASS"),
+		User:      cmdCfg.Database.Username,
+		Passwd:    cmdCfg.Database.Password,
 		Net:       "tcp",
-		Addr:      os.Getenv("DB_HOST"),
-		DBName:    os.Getenv("DB_NAME"),
+		Addr:      cmdCfg.Database.Hostname,
+		DBName:    cmdCfg.Database.Schema,
 		ParseTime: true,
 	}
 

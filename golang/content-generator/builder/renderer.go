@@ -3,6 +3,7 @@ package builder
 import (
 	"fmt"
 	"html/template"
+	"killedthis/shared"
 	"log"
 	"os"
 	"sort"
@@ -11,7 +12,7 @@ import (
 
 type Renderer struct {
 	ServiceProvider string
-	Shows           []KilledShow
+	Shows           []shared.KilledShow
 	OtherServices   []string
 	template        *template.Template
 }
@@ -21,10 +22,10 @@ type templateFields struct {
 	Sites  []string
 	Years  []string
 	Months []string
-	Shows  []KilledShow
+	Shows  []shared.KilledShow
 }
 
-func NewRenderer(sp string, otherServices []string, shows []KilledShow) *Renderer {
+func NewRenderer(sp string, otherServices []string, shows []shared.KilledShow) *Renderer {
 	r := Renderer{
 		ServiceProvider: sp,
 		OtherServices:   otherServices,

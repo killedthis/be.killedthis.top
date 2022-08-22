@@ -26,7 +26,7 @@ func main() {
 		return
 	}
 
-	database := builder.OpenDatabase(&config.Database)
+	database := shared.OpenDatabase(&config.Database)
 	if database == nil {
 		log.Panic("failed to open database")
 	}

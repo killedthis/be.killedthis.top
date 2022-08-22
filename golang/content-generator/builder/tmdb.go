@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/ryanbradynd05/go-tmdb"
 	"io"
+	"killedthis/shared"
 	"log"
 	"net/http"
 	"os"
@@ -38,7 +39,7 @@ func NewPosterDownloader(tmdbApiKey string) *TmdbPosterDownloader {
 	}
 }
 
-func (m TmdbPosterDownloader) LookupPosters(baseFolder string, shows []KilledShow) {
+func (m TmdbPosterDownloader) LookupPosters(baseFolder string, shows []shared.KilledShow) {
 	// Check if base folder exists
 	if _, err := os.Stat(baseFolder); err != nil {
 		err = os.MkdirAll(baseFolder, os.ModePerm)

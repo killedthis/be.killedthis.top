@@ -1,11 +1,9 @@
-package builder
+package shared
 
 import (
 	"database/sql"
 	"fmt"
 	"github.com/go-sql-driver/mysql"
-	_ "github.com/go-sql-driver/mysql"
-	"killedthis/shared"
 	"log"
 	"time"
 )
@@ -28,7 +26,7 @@ type KilledShow struct {
 	TmdbId          *int       `db:"tmdbid"`
 }
 
-func OpenDatabase(dbCfg *shared.DatabaseConfig) *Database {
+func OpenDatabase(dbCfg *DatabaseConfig) *Database {
 	cfg := mysql.Config{
 		User:      dbCfg.Username,
 		Passwd:    dbCfg.Password,

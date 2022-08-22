@@ -1,0 +1,101 @@
+{{ define "custom_styles" }}
+<style>
+    html {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+        overflow-y: scroll;
+    }
+
+    .kt-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 30px;
+    }
+
+    .kt-title {
+        padding-top: 20px;
+        font-weight: 100;
+    }
+
+    .kt-grid {
+        display: flex;
+        justify-content: center;
+    }
+
+    .kt-search {
+        width: 50%;
+    }
+
+    .kt-item {
+        max-width: 150px;
+        text-align: start;
+    }
+
+    .kt-thumbnail {
+        min-height: 225px;
+        min-width: 150px;
+    }
+
+    .kt-item-title {
+        word-wrap: break-word;
+        font-weight: 700;
+        font-size: .9em;
+    }
+
+    .kt-item-date {
+        font-size: .9em;
+        font-weight: 300;
+    }
+
+    .kt-filter-options {
+        list-style: none;
+
+    }
+
+    .kt-filter-grid {
+        margin-top: 20px;
+    }
+
+    .kt-content {
+        padding: 25px 300px 0 300px;
+    }
+
+    .kt-totop {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 1;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar {
+        background-color: transparent;
+        width: 10px;
+
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: lightgrey;
+        border-radius: 5px;
+    }
+
+    @media screen and (max-width: 600px) {
+        .kt-search {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 1500px) {
+        .kt-content {
+            padding: 25px 100px 0 100px;
+        }
+    }
+</style>
+{{ end }}

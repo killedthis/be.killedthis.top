@@ -40,6 +40,7 @@ func (m *Renderer) init() {
 	siteTemplate, err := template.ParseFiles(
 		"gotemplates/site.html",
 		"gotemplates/menu.html",
+		"gotemplates/custom_styles.html",
 	)
 	if err != nil {
 		log.Panic(err)

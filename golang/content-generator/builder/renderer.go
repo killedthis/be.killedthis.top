@@ -81,7 +81,7 @@ func (m *Renderer) RenderHtml(outputFolder string) {
 	sort.Strings(months)
 
 	err = m.template.Execute(file, templateFields{
-		Title:  fmt.Sprintf("%s killed this", m.ServiceProvider),
+		Title:  fmt.Sprintf("%s killed the following shows", m.ServiceProvider),
 		Sites:  m.OtherServices,
 		Shows:  m.Shows,
 		Years:  years,

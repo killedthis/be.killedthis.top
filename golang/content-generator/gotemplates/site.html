@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{ .Title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css"/>
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+    <!-- Custom styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    {{ template "custom_styles" }}
+</head>
+
+<body>
+<div id="root">
+    {{ template "menu" . }}
+
+    <a class="kt-totop" href="" uk-totop uk-scroll></a>
+    <div uk-filter="target: .kt-filter">
+        <nav class="uk-background-default kt-nav" uk-sticky>
+            <div class="uk-heading-small kt-title">
+                <span uk-icon="icon: ban; ratio: 2"></span> {{ .Title }}
+            </div>
+            <div style="text-align: center;">
+                <form class="uk-search uk-search-navbar kt-search uk-background-muted">
+                    <span uk-search-icon></span>
+                    <input class="uk-search-input" type="search" placeholder="Search">
+                </form>
+            </div>
+            <!-- Filter controls -->
+            <div class="kt-filter-grid uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
+                <div uk-margin>
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                        <li class="uk-active" uk-filter-control><a href="#">All</a></li>
+                    </ul>
+                </div>
+                <div uk-margin>
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                        <li uk-filter-control="sort: year; order: desc;"><a href="#">Latest</a>
+                        </li>
+                    </ul>
+                </div>
+                <div uk-margin>
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill">
+                        <li uk-filter-control="sort: year; order: asc;"><a href="#">Oldest</a>
+                        </li>
+                    </ul>
+                </div>
+                <div uk-margin="" class="uk-grid-margin uk-first-column">
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill uk-first-column">
+                        {{ range $y := .Years }}
+                        <li uk-filter-control="filter: [year='{{ $y }}']; group: year" class=""><a href="#">{{ $y }}</a></li>
+                        {{ end }}
+                    </ul>
+                </div>
+                <div uk-margin="" class="uk-grid-margin uk-first-column">
+                    <ul class="kt-filter-options uk-subnav uk-subnav-pill uk-first-column">
+                        {{ range $m := .Months }}
+                        <li uk-filter-control="filter: [month='{{ $m }}']; group: month"><a href="#">{{ $m }}</a></li>
+                        {{ end }}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Layout items -->
+        <div class="kt-content">
+            <ul class="kt-filter uk-grid-small uk-text-center kt-grid uk-grid" uk-grid="" style="">
+                {{ range $show := .Shows }}
+                <li class="kt-item uk-first-column" year="{{ $show.Year }}" month="{{ $show.Month }}" tmdbid="{{ $show.TmdbId }}" style="">
+                    <a class="uk-link-reset" href="#modal-full0" uk-toggle="" aria-expanded="false">
+                    <img src="img/posters/{{ $show.TmdbPoster }}" class="kt-thumbnail" alt="No movie thumbnail"></a>
+                    <div class="uk-text-secondary kt-item-title">{{ $show.Title }}</div>
+                    <div class="kt-item-date">{{ $show.Year }}-{{ $show.Month }}</div>
+                    <div id="modal-full0" class="uk-modal-full uk-modal" uk-modal="">
+                        <div class="uk-modal-dialog">
+                            <button class="uk-modal-close-full uk-close-large uk-icon uk-close" type="button" uk-close="">
+                                <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <line fill="none" stroke="#000" stroke-width="1.4" x1="1" y1="1" x2="19" y2="19"></line>
+                                    <line fill="none" stroke="#000" stroke-width="1.4" x1="19" y1="1" x2="1" y2="19"></line>
+                                </svg>
+                            </button>
+                            <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle uk-grid uk-grid-stack" uk-grid="">
+                                <div class="uk-background-cover" style="background-image: url('img/posters/{{ $show.TmdbPoster }}');" uk-height-viewport=""></div>
+                                <div class="uk-padding-large">
+                                    <h1>Night Sky</h1>
+                                    <h2>2022 - 07</h2>
+                                    <p>foobar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

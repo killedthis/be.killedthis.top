@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
+	"killedthis/shared"
 	"log"
 	"time"
 )
@@ -27,13 +28,13 @@ type KilledShow struct {
 	TmdbId          *int       `db:"tmdbid"`
 }
 
-func OpenDatabase(cmdCfg *ConfigurationRoot) *Database {
+func OpenDatabase(dbCfg *shared.DatabaseConfig) *Database {
 	cfg := mysql.Config{
-		User:      cmdCfg.Database.Username,
-		Passwd:    cmdCfg.Database.Password,
+		User:      dbCfg.Username,
+		Passwd:    dbCfg.Password,
 		Net:       "tcp",
-		Addr:      cmdCfg.Database.Hostname,
-		DBName:    cmdCfg.Database.Schema,
+		Addr:      dbCfg.Hostname,
+		DBName:    dbCfg.Schema,
 		ParseTime: true,
 	}
 

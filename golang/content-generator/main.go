@@ -1,30 +1,20 @@
 package main
 
 import (
-	"gopkg.in/yaml.v3"
-	"killedthis/be.killedthis.top/builder"
+	"killedthis/content-generator/builder"
+	"killedthis/shared"
 	"log"
-	"os"
 )
 
-var config builder.ConfigurationRoot
+var config *shared.ConfigurationRoot
 
 func init() {
 	log.Println("Loading Configuration...")
 
-	yamlFile, err := os.ReadFile("config.yaml")
-	if err != nil {
-		log.Panic("unable to load configuration: ", err)
-		return
+	config = shared.LoadConfiguration("../config.yaml")
+	if config == nil {
+		log.Panic("failed to load configuration")
 	}
-
-	err = yaml.Unmarshal(yamlFile, &config)
-	if err != nil {
-		log.Panic("unable to parse configuration: ", err)
-		return
-	}
-
-	log.Printf("%v\n", config)
 }
 
 func main() {
@@ -36,7 +26,7 @@ func main() {
 		return
 	}
 
-	database := builder.OpenDatabase(&config)
+	database := builder.OpenDatabase(&config.Database)
 	if database == nil {
 		log.Panic("failed to open database")
 	}

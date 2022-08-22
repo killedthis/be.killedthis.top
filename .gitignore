@@ -10,4 +10,4 @@ sites/killedthis.top/menu.js
 /outputs
 /.idea
 .vscode/
-/golang/content-generator/config.yaml
+/golang/config.yaml

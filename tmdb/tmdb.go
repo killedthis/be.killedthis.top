@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -28,8 +27,11 @@ var PosterPath string = "/home/www/sites/killedthis.top/img/posters/"
 
 func main() {
 	var (
-		tmdbAPI *tmdb.TMDb
-		tmdbid  string
+		tmdbAPI        *tmdb.TMDb
+		tmdbid         string
+		baseurl        string = "https://image.tmdb.org/t/p/"
+		smallImageBase string = baseurl + "w150_and_h225_bestv2"
+		largeImageBase string = baseurl + "w780"
 	)
 
 	apikeyload, err := ioutil.ReadFile("/home/www/secret/tmdb")
@@ -46,41 +48,51 @@ func main() {
 	tmdbAPI = tmdb.Init(config)
 
 	searchPtr := flag.Bool("s", false, "Search Title (string)")
-	tvInfoPtr := flag.Bool("t", false, "TV Info (requires id)")
+	tvInfoPtr := flag.Int("t", -1, "TV Info (requires id)")
+	forcePtr := flag.Bool("f", false, "Force Downloading")
 
 	flag.Parse()
 
 	if *searchPtr == true {
 		title := strings.Join(os.Args[2:], " ")
 		tvInfo, _ := tmdbAPI.SearchTv(title, nil)
-
+		fmt.Printf("Searching for %v\n", title)
 		for md := range tvInfo.Results {
-			if title == tvInfo.Results[md].Name {
+			// fmt.Printf("%s [%d]\n", tvInfo.Results[md].Name, tvInfo.Results[md].ID)
+			if strings.EqualFold(title, tvInfo.Results[md].Name) {
 				// fmt.Println(tvInfo.Results[md].FirstAirDate)
-				fmt.Println(tvInfo.Results[md].Name)
-				fmt.Println(tvInfo.Results[md].ID)
+				fmt.Printf("%s [%d]\n", tvInfo.Results[md].Name, tvInfo.Results[md].ID)
+				// fmt.Println(tvInfo.Results[md].Name)
+				// fmt.Println(tvInfo.Results[md].ID)
 				// fmt.Println(tvInfo.Results[md].PosterPath)
 			}
 		}
 	}
 
-	if *tvInfoPtr == true {
+	if *tvInfoPtr > 0 {
 
-		tmdbid = os.Args[2]
+		tmdbid = strconv.Itoa(*tvInfoPtr)
 
-		if _, err := os.Stat(PosterPath + tmdbid + ".jpg"); errors.Is(err, os.ErrNotExist) {
-			baseurl := "https://image.tmdb.org/t/p/"
-			smallImage := "w150_and_h225_bestv2"
-			// bigImage := "w780"
+		_, err := os.Stat(PosterPath + tmdbid + ".jpg")
+		if err != nil || *forcePtr == true {
 			id, _ := strconv.Atoi(tmdbid)
-			tvInfo, err := tmdbAPI.GetTvInfo(id, nil)
 
+			tvInfo, err := tmdbAPI.GetTvInfo(id, nil)
 			if err != nil {
 				fmt.Printf("%s | %v\n", tmdbid, err)
 			}
 
-			fmt.Printf("Downloading %s from %s\n", tmdbid, baseurl+smallImage+tvInfo.PosterPath)
-			downloadPoster(baseurl+smallImage+tvInfo.PosterPath, tmdbid)
+			smallImageURL := smallImageBase + tvInfo.PosterPath
+			largeImageURL := largeImageBase + tvInfo.PosterPath
+
+			fmt.Printf("Downloading Poster %s from %s\n", tmdbid, smallImageURL)
+			downloadPoster(smallImageURL, tmdbid)
+
+			fmt.Printf("Downloading Large Poster %s from %s\n", tmdbid, largeImageURL)
+			downloadPoster(largeImageURL, tmdbid+"w780")
+
+		} else {
+			fmt.Printf("%s | %s\n", tmdbid, "Poster already exists")
 		}
 
 		// fmt.Println(tvInfo.Overview)
@@ -91,9 +103,11 @@ func main() {
 
 		// fmt.Println(baseurl +smallImage + tvInfo.PosterPath)
 
-		if _, err := os.Stat(PosterPath + tmdbid + ".webp"); errors.Is(err, os.ErrNotExist) {
+		_, err = os.Stat(PosterPath + tmdbid + ".webp")
+		if err != nil || *forcePtr == true {
 			fmt.Printf("Creating webp of %s\n", tmdbid)
 			createwebP(tmdbid)
+			createwebP(tmdbid + "w780")
 		}
 	}
 }

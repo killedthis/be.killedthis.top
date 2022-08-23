@@ -77,6 +77,47 @@
 <body>
     <script src="menu.js"></script>
 
+    <div class="uk-card uk-card-hover">
+        <div class="uk-card-header">
+            <h3 class="uk-card-title"> <img src="img/favicon.svg" style="height:64px;" />Killedthis</h3>
+        </div>
+        <div class="uk-card-body">
+            <p>Killedthis, is a service that lists canceled shows and services from popular providers.</p>
+        </div>
+        <div class="uk-card-footer">Have Fun</div>
+    </div>
+
+    <!-- FP Top Block Start -->
+    <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-expand" uk-leader>{ServiceProvider}</div>
+        <div>{NumberOfShows} Canceled Shows</div>
+    </div>
+    <div class="uk-child-width-1-2 uk-grid-match" uk-grid>
+        <div>
+            <div class="uk-child-width-1-2 uk-text-center uk-grid-match" uk-grid>
+                <div>
+                    <div class="uk-card uk-card-primary uk-card-body">Last Item</div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-primary uk-card-body">Previous to Last</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <dl class="uk-description-list">
+                    <dt>{LastShow2}</dt>
+                    <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</dd>
+                    <dt>{LastShow3}</dt>
+                    <dd>Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut.</dd>
+                    <dt>{LastShow4}</dt>
+                    <dd>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <!-- FP Top Block End -->
+
     <div class="uk-section-muted uk-section uk-section-xsmall">
         <div class="tm-grid-expand uk-grid-collapse uk-child-width-1-1 uk-margin-remove-vertical uk-grid uk-grid-stack"
             uk-grid="">

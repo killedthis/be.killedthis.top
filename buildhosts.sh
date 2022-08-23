@@ -14,11 +14,13 @@ for SERVICE in "${SERVICES[@]}"; do
 done
 
 #create catchall for all hostnames on :80
-# rm /home/www/hosts/dynamicservers.conf
 printf "server {\n\tlisten 80;\n\tserver_name%s;\n\n\treturn 301 https://\$server_name\$request_uri;\n\n\tlocation ~ /\.(?!well-known).* {\n\t\tdeny all;\n\t}\n\n}\n\n" "$hostnamelist" >/home/www/hosts/dynamicservers.conf
 
 for hostname in "${SERVICES[@]}"; do
-	/home/www/r53b/r53b "${hostname,}"
+	(
+		cd /home/www/golang/r53b
+		/home/www/golang/r53b/r53b.go "${hostname,}"
+	)
 	printf "server {\n\tlisten 443 ssl http2;\n\tserver_name %s.killedthis.top;\n\tinclude /home/www/hosts/common/dynamicvhost.conf;\n\n\tlocation / {\n\t\troot /home/www/sites/killedthis.top/;\n\t\tindex \$server_name.html;\n\t}\n\n\tlocation ~ /\.(?!well-known).* {\n\t\tdeny all;\n\t}\n\n}\n" "${hostname,}" >>/home/www/hosts/dynamicservers.conf
 	echo -e
 done

@@ -13,10 +13,19 @@ type DatabaseConfig struct {
 	Schema   string `yaml:"schema"`
 }
 
+type TmdbConfig struct {
+	Apikey string `yaml:"apikey"`
+}
+
+type ContentGeneratorConfig struct {
+	TmdbEnabled     bool   `yaml:"tmdbEnabled"`
+	OutputDirectory string `yaml:"outputDirectory"`
+}
+
 type ConfigurationRoot struct {
-	Database        DatabaseConfig `yaml:"database"`
-	OutputDirectory string         `yaml:"outputDirectory"`
-	TmdbApi         string         `yaml:"tmdbApi"`
+	Database         DatabaseConfig         `yaml:"database"`
+	ContentGenerator ContentGeneratorConfig `yaml:"contentGenerator"`
+	Tmdb             TmdbConfig             `yaml:"tmdb"`
 }
 
 func LoadConfiguration(filename string) *ConfigurationRoot {

@@ -20,7 +20,7 @@ func init() {
 func main() {
 	log.Println("Starting KilledThis Builder...")
 
-	outputFolder := config.OutputDirectory
+	outputFolder := config.ContentGenerator.OutputDirectory
 	if outputFolder == "" {
 		log.Panic("unknown output folder, specify ENV 'OUTPUT', should probably go into a config file later")
 		return
@@ -31,7 +31,10 @@ func main() {
 		log.Panic("failed to open database")
 	}
 
-	posterDownloader := builder.NewPosterDownloader(config.TmdbApi)
+	var posterDownloader *builder.TmdbPosterDownloader = nil
+	if config.ContentGenerator.TmdbEnabled {
+		posterDownloader = builder.NewPosterDownloader(config.Tmdb.Apikey)
+	}
 
 	// Get all Service Providers
 	log.Println("Retrieving service providers...")
@@ -52,7 +55,9 @@ func main() {
 		// render it
 		renderer.RenderHtml(outputFolder)
 
-		// look up & download posters for shows
-		posterDownloader.LookupPosters(outputFolder+"/img/posters", shows)
+		if posterDownloader != nil {
+			// look up & download posters for shows
+			posterDownloader.LookupPosters(outputFolder+"/img/posters", shows)
+		}
 	}
 }

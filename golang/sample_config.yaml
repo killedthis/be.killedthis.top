@@ -3,5 +3,8 @@ database:
   schema: funny
   username: killedthis
   password: password
-outputDirectory: ../../outputs
-tmdbApi: abcdefgh
+contentGenerator:
+  tmdbEnabled: false
+  outputDirectory: ../../outputs
+tmdb:
+  apikey: abcdefgh

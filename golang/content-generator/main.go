@@ -53,7 +53,7 @@ func main() {
 		renderer := builder.NewRenderer(provider, serviceProviders, shows)
 
 		// render it
-		renderer.RenderHtml(outputFolder)
+		renderer.RenderHtml(&config.ContentGenerator)
 
 		if posterDownloader != nil {
 			// look up & download posters for shows

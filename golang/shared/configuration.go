@@ -20,6 +20,7 @@ type TmdbConfig struct {
 type ContentGeneratorConfig struct {
 	TmdbEnabled     bool   `yaml:"tmdbEnabled"`
 	OutputDirectory string `yaml:"outputDirectory"`
+	FormatSiteFile  string `yaml:"formatSiteFile"`
 }
 
 type ConfigurationRoot struct {

@@ -1,10 +1,11 @@
 database:
-  hostname: dbserver
-  schema: funny
-  username: killedthis
-  password: password
+  hostname: "dbserver"
+  schema: "funny"
+  username: "killedthis"
+  password: "password"
 contentGenerator:
   tmdbEnabled: false
-  outputDirectory: ../../outputs
+  outputDirectory: "../../outputs"
+  formatSiteFile: "%s.killedthis.top.html"
 tmdb:
-  apikey: abcdefgh
+  apikey: "abcdefgh"

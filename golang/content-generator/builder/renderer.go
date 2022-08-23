@@ -50,8 +50,9 @@ func (m *Renderer) init() {
 	m.template = siteTemplate
 }
 
-func (m *Renderer) RenderHtml(outputFolder string) {
-	file, err := os.OpenFile(outputFolder+"/"+strings.ToLower(m.ServiceProvider)+".html", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+func (m *Renderer) RenderHtml(cfg *shared.ContentGeneratorConfig) {
+	filename := fmt.Sprintf(cfg.FormatSiteFile, strings.ToLower(m.ServiceProvider))
+	file, err := os.OpenFile(cfg.OutputDirectory+"/"+filename, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
 		log.Panic("failed to open output file: ", err)
 		return

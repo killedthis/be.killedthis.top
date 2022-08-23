@@ -11,3 +11,4 @@ sites/killedthis.top/menu.js
 /.idea
 .vscode/
 /golang/config.yaml
+golang/tmdb/shows.txt

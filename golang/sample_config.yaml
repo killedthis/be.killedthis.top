@@ -9,3 +9,9 @@ contentGenerator:
   formatSiteFile: "%s.killedthis.top.html"
 tmdb:
   apikey: "abcdefgh"
+r53:
+  accesskey: "abcdefgh"
+  secretKey: "abcdefgh"
+  region: "eu-central-1"
+  lemail: "admin@ear.pm"
+  dnszone: "abcdefgh"

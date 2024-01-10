@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/mitchellh/goamz/aws"
@@ -11,7 +12,7 @@ import (
 
 func check(err error) {
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 }
 
@@ -27,7 +28,7 @@ func main() {
 	auth, err := aws.EnvAuth()
 	check(err)
 
-	fmt.Printf("Checking for: %s\n", os.Args[1]+".killedthis.top")
+	log.Printf("Checking for: %s\n", os.Args[1]+".killedthis.top")
 
 	dns := route53.New(auth, aws.EUCentral)
 	check(err)
@@ -38,7 +39,10 @@ func main() {
 	re, err := json.MarshalIndent(resr, "", "  ")
 	check(err)
 
-	json.Unmarshal([]byte(re), &dnsrecord)
+	err = json.Unmarshal([]byte(re), &dnsrecord)
+	if err != nil {
+		log.Panic(err)
+	}
 
 	if len(dnsrecord) < 1 {
 		fmt.Printf("Creating: %s\n", os.Args[1]+".killedthis.top")
@@ -50,6 +54,6 @@ func main() {
 
 		os.Stdout.Write(cr)
 	} else {
-		fmt.Printf("Found: %s\n", dnsrecord[0].Name)
+		log.Printf("Found: %s\n", dnsrecord[0].Name)
 	}
 }

@@ -1,17 +1,19 @@
 database:
-  hostname: "dbserver"
-  schema: "funny"
-  username: "killedthis"
-  password: "password"
+  hostname: dbserver
+  schema: funny
+  username: killedthis
+  password: password
 contentGenerator:
   tmdbEnabled: false
-  outputDirectory: "../../outputs"
+  outputDirectory: ../../outputs
   formatSiteFile: "%s.killedthis.top.html"
 tmdb:
-  apikey: "abcdefgh"
+  apikey: abcdefgh
 r53:
-  accesskey: "abcdefgh"
-  secretKey: "abcdefgh"
-  region: "eu-central-1"
-  lemail: "admin@ear.pm"
-  dnszone: "abcdefgh"
+  accesskey: abcdefgh
+  secretKey: abcdefgh
+  region: eu-central-1
+  lemail: admin@ear.pm
+  dnszone: abcdefgh
+hosts:
+  path: /home/www/hosts/

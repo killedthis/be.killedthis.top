@@ -1,40 +1,40 @@
+// / 2>/dev/null ; gorun "$0" "$@" ; exit $?
 package main
 
 import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
 
-	"github.com/h2non/bimg"
-	"github.com/ryanbradynd05/go-tmdb"
+	bimg "github.com/h2non/bimg"
+	tmdb "github.com/ryanbradynd05/go-tmdb"
 )
 
-type Media []struct {
-	Overview    string `json:"overview"`
-	ReleaseDate string `json:"release_date"`
-	Title       string `json:"title"`
-	ID          string `json:"ID"`
-	PosterPath  string `json:"poster_path"`
-}
+// type media []struct {
+// 	Overview    string `json:"overview"`
+// 	ReleaseDate string `json:"release_date"`
+// 	Title       string `json:"title"`
+// 	ID          string `json:"ID"`
+// 	PosterPath  string `json:"poster_path"`
+// }
 
-var PosterPath string = "/home/www/sites/killedthis.top/img/posters/"
+var posterPath = "/home/www/sites/killedthis.top/img/posters/"
 
 func main() {
 	var (
 		tmdbAPI        *tmdb.TMDb
 		tmdbid         string
-		baseurl        string = "https://image.tmdb.org/t/p/"
-		smallImageBase string = baseurl + "w150_and_h225_bestv2"
-		largeImageBase string = baseurl + "w780"
+		baseurl         = "https://image.tmdb.org/t/p/"
+		smallImageBase  = baseurl + "w150_and_h225_bestv2"
+		largeImageBase  = baseurl + "w780"
 	)
 
-	apikeyload, err := ioutil.ReadFile("/home/www/secret/tmdb")
+	apikeyload, err := os.ReadFile("/home/www/secret/tmdb")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -52,6 +52,8 @@ func main() {
 	forcePtr := flag.Bool("f", false, "Force Downloading")
 
 	flag.Parse()
+
+
 
 	if *searchPtr == true {
 		title := strings.Join(os.Args[2:], " ")
@@ -73,7 +75,7 @@ func main() {
 
 		tmdbid = strconv.Itoa(*tvInfoPtr)
 
-		_, err := os.Stat(PosterPath + tmdbid + ".jpg")
+		_, err := os.Stat(posterPath + tmdbid + ".jpg")
 		if err != nil || *forcePtr == true {
 			id, _ := strconv.Atoi(tmdbid)
 
@@ -103,7 +105,7 @@ func main() {
 
 		// fmt.Println(baseurl +smallImage + tvInfo.PosterPath)
 
-		_, err = os.Stat(PosterPath + tmdbid + ".webp")
+		_, err = os.Stat(posterPath + tmdbid + ".webp")
 		if err != nil || *forcePtr == true {
 			fmt.Printf("Creating webp of %s\n", tmdbid)
 			createwebP(tmdbid)
@@ -113,7 +115,7 @@ func main() {
 }
 
 func createwebP(tmdbid string) {
-	buffer, err := bimg.Read(PosterPath + tmdbid + ".jpg")
+	buffer, err := bimg.Read(posterPath + tmdbid + ".jpg")
 	if err != nil {
 		fmt.Printf("%s | %v %v\n", tmdbid, os.Stderr, err)
 	}
@@ -127,7 +129,7 @@ func createwebP(tmdbid string) {
 		fmt.Printf("%s | %s\n", tmdbid, "image was converted into webp")
 	}
 
-	bimg.Write(PosterPath+tmdbid+".webp", newImage)
+	bimg.Write(posterPath+tmdbid+".webp", newImage)
 }
 
 func downloadPoster(url string, tmdbid string) {
@@ -138,7 +140,7 @@ func downloadPoster(url string, tmdbid string) {
 	defer response.Body.Close()
 
 	if response.StatusCode == 200 {
-		file, err := os.Create(PosterPath + tmdbid + ".jpg")
+		file, err := os.Create(posterPath + tmdbid + ".jpg")
 		if err != nil {
 			fmt.Printf("%s | %v\n", tmdbid, err)
 		}

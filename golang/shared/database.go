@@ -3,9 +3,10 @@ package shared
 import (
 	"database/sql"
 	"fmt"
-	"github.com/go-sql-driver/mysql"
 	"log"
 	"time"
+
+	"github.com/go-sql-driver/mysql"
 )
 
 const queryServiceProviders = "SELECT DISTINCT serviceprovider FROM killedthis"
@@ -83,15 +84,7 @@ func (m *Database) GetShowsByProvider(provider string) []KilledShow {
 	queriedShows := make([]KilledShow, 0)
 	for rows.Next() {
 		var killedShow KilledShow
-		err := rows.Scan(
-			&killedShow.Id,
-			&killedShow.Title,
-			&killedShow.ServiceProvider,
-			&killedShow.Brand,
-			&killedShow.Date,
-			&killedShow.DateAdded,
-			&killedShow.Reason,
-			&killedShow.TmdbId)
+		killedShow, err := scanShow(rows)
 		if err != nil {
 			log.Println("failed to parse row: ", err)
 			return nil
@@ -101,6 +94,20 @@ func (m *Database) GetShowsByProvider(provider string) []KilledShow {
 	}
 
 	return queriedShows
+}
+
+func scanShow(rows *sql.Rows) (show KilledShow, err error) {
+	err = rows.Scan(
+		&show.Id,
+		&show.Title,
+		&show.ServiceProvider,
+		&show.Brand,
+		&show.Date,
+		&show.DateAdded,
+		&show.Reason,
+		&show.TmdbId)
+
+	return show, err
 }
 
 func (show KilledShow) Year() int {

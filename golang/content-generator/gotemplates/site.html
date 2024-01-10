@@ -72,22 +72,24 @@
 
         <!-- Layout items -->
         <div class="kt-content">
-            <ul class="kt-filter uk-grid-small uk-text-center kt-grid uk-grid" uk-grid="" style="">
-                {{ range $show := .Shows }}
-                <li class="kt-item uk-first-column" year="{{ $show.Year }}" month="{{ $show.Month }}" tmdbid="{{ $show.TmdbId }}" style="">
-                    <a class="uk-link-reset" href="#modal-full0" uk-toggle="" aria-expanded="false">
-                    <img src="img/posters/{{ $show.TmdbPoster }}" class="kt-thumbnail" alt="No movie thumbnail"></a>
+            <ul class="kt-filter uk-grid-small uk-text-center kt-grid" uk-grid>
+                {{ range $i, $show := .Shows }}
+                <li class="kt-item" year="{{ $show.Year }}" month="{{ $show.Month }}" tmdbid="{{ $show.TmdbId }}">
+                    <a class="uk-link-reset" href="#modal-full-{{ $i }}" uk-toggle aria-expanded="false">
+                        <img src="img/posters/{{ $show.TmdbPoster }}" loading="lazy" class="kt-thumbnail" alt="No movie thumbnail">
+                    </a>
                     <div class="uk-text-secondary kt-item-title">{{ $show.Title }}</div>
                     <div class="kt-item-date">{{ $show.Year }}-{{ $show.Month }}</div>
-                    <div id="modal-full0" class="uk-modal-full uk-modal" uk-modal="">
-                        <div class="uk-modal-dialog">
-                            <button class="uk-modal-close-full uk-close-large uk-icon uk-close" type="button" uk-close=""/>
-                            <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle uk-grid uk-grid-stack" uk-grid="">
-                                <div class="uk-background-cover" style="background-image: url('img/posters/{{ $show.TmdbPoster }}');" uk-height-viewport=""></div>
+
+                    <div id="modal-full-{{ $i }}" class="uk-modal-full uk-modal" uk-modal> 
+                        <div class="uk-modal-dialog"> 
+                            <button class="uk-modal-close-full uk-close-large uk-icon uk-close" type="button" uk-close></button>
+                            <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle uk-grid uk-grid-stack" uk-grid>
+                                <div class="uk-background-cover" style="background-image: url('img/posters/{{ $show.TmdbPoster }}');" uk-height-viewport></div>
                                 <div class="uk-padding-large">
-                                    <h1>Night Sky</h1>
-                                    <h2>2022 - 07</h2>
-                                    <p>foobar</p>
+                                    <h1>{{ $show.Title }}</h1>
+                                    <h2>{{ $show.Year }}-{{ $show.Month }}</h2>
+                                    <p>More Show details go here</p>
                                 </div>
                             </div>
                         </div>
